@@ -1,14 +1,20 @@
-const { pool } = require("../db/connection");
+const { query, count } = require("../db/connection");
 
-module.exports = (req, res) => {
-  return new Promise((resolve, reject) => {
-    pool.query("select * from tags limit 10", (error, results) => {
-      if (error) {
-        reject(error);
-      }
+module.exports = async (req, res) => {
+  const { limit = 30, offset = 0 } = req.query;
+  const results = await query({
+    query: "SELECT * FROM tags LIMIT ? OFFSET ?",
+    params: [Number(limit), Number(offset)]
+  });
 
-      resolve(results);
-      res.json(results);
-    });
+  const total = await count({
+    query: "SELECT COUNT(*) AS total FROM tags"
+  });
+
+  res.json({
+    limit,
+    offset,
+    total,
+    data: results
   });
 };
