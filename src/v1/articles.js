@@ -1,9 +1,10 @@
 const { query, count } = require("../db/connection");
 
 module.exports = async (req, res) => {
-  const { limit = 10, offset = 0 } = req.query;
+  const { pageNumber = 0, pageSize: limit = 30 } = req.query;
+  const offset = pageNumber * limit;
   const results = await query({
-    query: "SELECT * FROM articles LIMIT ? OFFSET ?",
+    query: "SELECT * FROM articles ORDER BY id DESC LIMIT ? OFFSET ?",
     params: [Number(limit), Number(offset)]
   });
 
@@ -12,9 +13,12 @@ module.exports = async (req, res) => {
   });
 
   res.json({
-    limit,
-    offset,
-    total,
+    meta: {
+      limit,
+      offset,
+      page_size: total,
+      elements: results.length
+    },
     data: results
   });
 };
