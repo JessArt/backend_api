@@ -1,6 +1,6 @@
-const { queryOne } = require("../db/connection");
+const { queryOne, query } = require("../db/connection");
 
-module.exports = async (req, res) => {
+module.exports.get = async (req, res) => {
   const { id } = req.params;
 
   const result = await queryOne({
@@ -15,4 +15,82 @@ module.exports = async (req, res) => {
       error: "not_found"
     });
   }
+};
+
+module.exports.post = async (req, res) => {
+  const {
+    title,
+    subtitle,
+    meta_title,
+    meta_description,
+    keywords,
+    cover,
+    city,
+    text
+  } = req.body;
+
+  const result = await query({
+    query: `
+    INSERT INTO articles
+    (title, subtitle, meta_title, meta_description, keywords, cover, city, text)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    params: [
+      title,
+      subtitle,
+      meta_title,
+      meta_description,
+      keywords,
+      cover,
+      city,
+      text
+    ]
+  });
+
+  res.send({
+    status: "success"
+  });
+};
+
+module.exports.put = async (req, res) => {
+  const {
+    title,
+    subtitle,
+    meta_title,
+    meta_description,
+    keywords,
+    cover,
+    city,
+    text
+  } = req.body;
+
+  const { id } = req.params;
+
+  const result = await query({
+    query: `
+    UPDATE articles SET
+    title = ?,
+    subtitle = ?,
+    meta_title = ?,
+    meta_description = ?,
+    keywords = ?,
+    cover = ?,
+    city = ?,
+    text = ?
+    WHERE id = ?`,
+    params: [
+      title,
+      subtitle,
+      meta_title,
+      meta_description,
+      keywords,
+      cover,
+      city,
+      text,
+      id
+    ]
+  });
+
+  res.send({
+    status: "success"
+  });
 };
