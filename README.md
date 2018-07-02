@@ -3,6 +3,7 @@
 API with all the content.
 
 > This is a WIP, and under building. I'll update the README afterwards.
+> Also, this is not runnable yet (without changes). I'll update it after it is good enough.
 
 ## Running
 
