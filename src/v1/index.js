@@ -10,7 +10,6 @@ const upload = multer({
 
 // handlers
 const image = require("./image");
-const images = require("./images");
 
 const article = require("./article");
 const articles = require("./articles");
@@ -26,7 +25,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const app = express();
 
 app.get("/images/:id", wrapAsync(image.get));
-app.get("/images", wrapAsync(images));
+app.get("/images", wrapAsync(image.getMany));
 app.get("/articles/:id", wrapAsync(article.get));
 app.get("/articles", wrapAsync(articles));
 app.get("/tags", wrapAsync(tags.get));
@@ -69,5 +68,7 @@ app.put(
   wrapAsync(image.put)
 );
 app.put("/tags/:id", [login.middleware, upload.none()], wrapAsync(tags.put));
+
+app.delete("/images/:id", [login.middleware], wrapAsync(image.remove));
 
 module.exports = app;

@@ -2,6 +2,7 @@ const jimp = require("jimp");
 const path = require("path");
 const { queryOne, query } = require("../../db/connection");
 const { images: { path: pathToImages } } = require("../../env");
+const { unlink } = require("fs");
 
 const LETTERS =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
@@ -104,4 +105,18 @@ module.exports.resolvedTags = async function resolveTags({ tags }) {
   );
 
   return resolvedTagsArray.reduce((arr, value) => arr.concat(value), []);
+};
+
+module.exports.removeImage = imageName => {
+  const filePath = path.join(pathToImages, imageName);
+
+  return new Promise((resolve, reject) => {
+    unlink(filePath, err => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve();
+    });
+  });
 };
