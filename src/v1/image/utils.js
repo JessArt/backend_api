@@ -81,3 +81,27 @@ module.exports.uploadTags = async function uploadTags({ tags, imageId }) {
     )
   );
 };
+
+module.exports.resolvedTags = async function resolveTags({ tags }) {
+  const tagsArray = Array.isArray(tags) ? tags : [tags];
+
+  const resolvedTagsArray = await Promise.all(
+    tagsArray.map(async tag => {
+      const relatedTags = await query({
+        query:
+          "SELECT contained_id as tagId from tags_relations WHERE parent_id = ?",
+        params: [Number(tag)]
+      });
+
+      if (relatedTags && relatedTags.length) {
+        return resolveTags({
+          tags: relatedTags.map(({ tagId }) => tagId)
+        }).then(resolvedTags => [tag].concat(resolvedTags));
+      } else {
+        return tag;
+      }
+    })
+  );
+
+  return resolvedTagsArray.reduce((arr, value) => arr.concat(value), []);
+};
