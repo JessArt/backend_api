@@ -60,10 +60,13 @@ module.exports.put = async (req, res) => {
     keywords,
     cover,
     city,
-    text
+    text,
+    published_on
   } = req.body;
 
   const { id } = req.params;
+
+  const publishedDate = new Date(published_on);
 
   const result = await query({
     query: `
@@ -75,7 +78,8 @@ module.exports.put = async (req, res) => {
     keywords = ?,
     cover = ?,
     city = ?,
-    text = ?
+    text = ?,
+    published_on = ?
     WHERE id = ?`,
     params: [
       title,
@@ -86,6 +90,7 @@ module.exports.put = async (req, res) => {
       cover,
       city,
       text,
+      publishedDate === "Invalid Date" ? null : publishedDate,
       id
     ]
   });
