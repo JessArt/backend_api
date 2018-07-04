@@ -83,7 +83,7 @@ module.exports.uploadTags = async function uploadTags({ tags, imageId }) {
   );
 };
 
-module.exports.resolvedTags = async function resolveTags({ tags }) {
+module.exports.resolveTags = async function resolveTags({ tags }) {
   const tagsArray = Array.isArray(tags) ? tags : [tags];
 
   const resolvedTagsArray = await Promise.all(
