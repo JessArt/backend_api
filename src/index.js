@@ -12,5 +12,6 @@ app.use(cors());
 app.use("/v1", v1);
 app.use("/v2", v2);
 app.post("/login", upload.none(), login.request);
+app.get("/validate_token", login.validateToken);
 
 app.listen("4003");
