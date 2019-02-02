@@ -14,4 +14,8 @@ app.use("/v2", v2);
 app.post("/login", upload.none(), login.request);
 app.get("/validate_token", login.validateToken);
 
-app.listen("4003");
+const PORT = 4003;
+app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`API is listening at port ${PORT}`);
+});
