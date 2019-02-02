@@ -2,7 +2,7 @@ const jimp = require("jimp");
 const path = require("path");
 const { queryOne, query } = require("../../db/connection");
 const { images: { path: pathToImages } } = require("../../env");
-const { unlink } = require("fs");
+const { unlink, writeFile } = require("fs");
 
 const LETTERS =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
@@ -38,6 +38,18 @@ module.exports.saveImage = function saveImage({
       resolve(`https://static.jess.gallery/${imageName}`);
     })
   );
+};
+
+module.exports.saveGIF = function saveGIF({ gif, name }) {
+  return new Promise((resolve, reject) => {
+    writeFile(path.join(pathToImages, name), gif, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(`https://static.jess.gallery/${name}`);
+      }
+    });
+  });
 };
 
 module.exports.uploadTags = async function uploadTags({ tags, imageId }) {

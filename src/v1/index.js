@@ -42,6 +42,11 @@ app.post(
   image.upload
 );
 app.post(
+  "/images/upload_gif",
+  [login.middleware, upload.single("gif")],
+  image.uploadGIF
+);
+app.post(
   "/articles",
   [login.middleware, upload.none()],
   wrapAsync(article.post)

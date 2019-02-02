@@ -1,5 +1,5 @@
 const jimp = require("jimp");
-const { createNewHash, saveImage } = require("./utils");
+const { createNewHash, saveImage, saveGIF } = require("./utils");
 
 module.exports.upload = async (req, res) => {
   const imageBuffer = req.file;
@@ -16,4 +16,14 @@ module.exports.upload = async (req, res) => {
   res.send({
     url
   });
+};
+
+module.exports.uploadGIF = async (req, res) => {
+  const gif = req.file.buffer;
+
+  const name = `${createNewHash()}.gif`;
+
+  const url = await saveGIF({ gif, name });
+
+  res.send({ url });
 };
