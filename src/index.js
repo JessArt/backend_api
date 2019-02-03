@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const upload = multer();
+const activateLogger = require("./logger");
 
 const v1 = require("./v1/index");
 const v2 = require("./v2/index");
 const login = require("./login");
 
 const app = express();
+activateLogger(app);
 app.use(cors());
 app.use("/v1", v1);
 app.use("/v2", v2);
