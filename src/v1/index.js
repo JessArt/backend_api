@@ -18,6 +18,8 @@ const feedback = require("./feedback");
 const progress = require("./progress");
 const subscribe = require("./subscribe");
 
+const slider_images = require("./slider_images");
+
 const tags = require("./tags");
 
 const wrapAsync = require("../utils/wrapAsync");
@@ -35,16 +37,28 @@ app.get("/nested_tags", wrapAsync(tags.getNestedTags));
 
 app.get("/progress", progress.get);
 
-app.post("/images", [login.middleware, upload.single("image")], image.post);
+app.get("/slider_images", wrapAsync(slider_images.get));
+
+app.post(
+  "/slider_images",
+  [login.middleware, bodyParser.json()],
+  wrapAsync(slider_images.post)
+);
+
+app.post(
+  "/images",
+  [login.middleware, upload.single("image")],
+  wrapAsync(image.post)
+);
 app.post(
   "/images/upload",
   [login.middleware, upload.single("image")],
-  image.upload
+  wrapAsync(image.upload)
 );
 app.post(
   "/images/upload_gif",
   [login.middleware, upload.single("gif")],
-  image.uploadGIF
+  wrapAsync(image.uploadGIF)
 );
 app.post(
   "/articles",
