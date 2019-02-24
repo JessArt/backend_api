@@ -1,9 +1,6 @@
 # API for [jess.gallery](https://jess.gallery)
 
-API with all the content.
-
-> This is a WIP, and under building. I'll update the README afterwards.
-> Also, this is not runnable yet (without changes). I'll update it after it is good enough.
+This is a Node.js application serving as an API for [jess.gallery](https://jess.gallery), both for the public part and for the CMS.
 
 ## Running
 
