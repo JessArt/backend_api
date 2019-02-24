@@ -16,6 +16,8 @@
     "no-dupe-args": "error",
     "no-dupe-keys": "error",
     "eqeqeq": "error",
-    "no-alert": "error"
+    "no-alert": "error",
+    "semi": ["error", "always"],
+    "no-unused-vars": "error"
   }
 }

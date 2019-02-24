@@ -42,7 +42,7 @@ module.exports.saveImage = function saveImage({
 
 module.exports.saveGIF = function saveGIF({ gif, name }) {
   return new Promise((resolve, reject) => {
-    writeFile(path.join(pathToImages, name), gif, (err, data) => {
+    writeFile(path.join(pathToImages, name), gif, err => {
       if (err) {
         reject(err);
       } else {

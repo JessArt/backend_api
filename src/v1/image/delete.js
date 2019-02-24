@@ -24,10 +24,12 @@ module.exports.remove = async (req, res) => {
       [result.small_url, result.big_url].map(getFileName).map(removeImage)
     );
   } catch (e) {
+    /* eslint-disable no-console */
     console.log("Error during removing following images:");
     console.log(result.small_url);
     console.log(result.big_url);
     console.log("with error:::", e);
+    /* eslint-enable no-console */
   }
 
   try {

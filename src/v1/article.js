@@ -29,7 +29,7 @@ module.exports.post = async (req, res) => {
     text
   } = req.body;
 
-  const result = await query({
+  await query({
     query: `
     INSERT INTO articles
     (title, subtitle, meta_title, meta_description, keywords, cover, city, text)
@@ -68,7 +68,7 @@ module.exports.put = async (req, res) => {
 
   const publishedDate = new Date(published_on);
 
-  const result = await query({
+  await query({
     query: `
     UPDATE articles SET
     title = ?,

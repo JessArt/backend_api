@@ -200,7 +200,7 @@ module.exports.put = async (req, res) => {
 
   const { name, cover, tags } = req.body;
 
-  const results = await query({
+  await query({
     query: "UPDATE tags SET name = ?, cover = ? WHERE id = ?",
     params: [name, cover, Number(id)]
   });
