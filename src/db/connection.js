@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const { db } = require("../env");
 
 // we create just one pool for the whole lifetime of the application

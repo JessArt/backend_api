@@ -26,6 +26,7 @@ const wrapAsync = require("../utils/wrapAsync");
 
 const app = express();
 
+app.get("/images/random", wrapAsync(image.random));
 app.get("/images/:id", wrapAsync(image.get));
 app.get("/images", wrapAsync(image.getMany));
 app.get("/articles/:id", wrapAsync(article.get));

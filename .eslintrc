@@ -12,6 +12,7 @@
   ],
   "rules": {
     "no-undef": "error",
+    "no-shadow": "error",
     "prettier/prettier": "error",
     "no-cond-assign": "error",
     "no-dupe-args": "error",
